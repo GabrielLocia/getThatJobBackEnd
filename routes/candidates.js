@@ -67,33 +67,33 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update a review by id
-router.put('/:id', async (req, res) => {
-  const {
-    body,
-    params: { id },
-  } = req;
-  const review = await sequelize.models.reviews.findByPk(id);
-  if (!review) {
-    return res.status(404).json({ code: 404, message: 'Review not found' });
-  }
-  const updatedReview = await review.update({
-    content: body.content,
-  });
-  return res.json({ data: updatedReview });
-});
+// // Update a review by id
+// router.put('/:id', async (req, res) => {
+//   const {
+//     body,
+//     params: { id },
+//   } = req;
+//   const review = await sequelize.models.reviews.findByPk(id);
+//   if (!review) {
+//     return res.status(404).json({ code: 404, message: 'Review not found' });
+//   }
+//   const updatedReview = await review.update({
+//     content: body.content,
+//   });
+//   return res.json({ data: updatedReview });
+// });
 
-// Delete a review by id
-router.delete('/:id', async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-  const review = await sequelize.models.reviews.findByPk(id);
-  if (!review) {
-    return res.status(404).json({ code: 404, message: 'Review not found' });
-  }
-  await review.destroy();
-  return res.json();
-});
+// // Delete a review by id
+// router.delete('/:id', async (req, res) => {
+//   const {
+//     params: { id },
+//   } = req;
+//   const review = await sequelize.models.reviews.findByPk(id);
+//   if (!review) {
+//     return res.status(404).json({ code: 404, message: 'Review not found' });
+//   }
+//   await review.destroy();
+//   return res.json();
+// });
 
 module.exports = router;

@@ -59,16 +59,16 @@ router.put('/',upload.single('logo'),async (req, res) => {
 });
 
 // Delete a recruiter by id
-router.delete('/:id', async (req, res) => {
-  const {
-    params: { id },
-  } = req;
-  const recruiter = await sequelize.models.reviews.findByPk(id);
-  if (!review) {
-    return res.status(404).json({ code: 404, message: 'Review not found' });
-  }
-  await review.destroy();
-  return res.json();
-});
+// router.delete('/:id', async (req, res) => {
+//   const {
+//     params: { id },
+//   } = req;
+//   const recruiter = await sequelize.models.reviews.findByPk(id);
+//   if (!review) {
+//     return res.status(404).json({ code: 404, message: 'Review not found' });
+//   }
+//   await review.destroy();
+//   return res.json();
+// });
 
 module.exports = router;
