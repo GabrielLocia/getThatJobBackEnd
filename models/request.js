@@ -1,0 +1,40 @@
+const { DataTypes, Sequelize } = require('sequelize');
+
+module.exports = (sequelize) => {
+  const request = sequelize.define('requests', {
+    // id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    // candidateId: {
+    //   type: Sequelize.INTEGER,
+    //   references: {
+    //     model: 'candidates',
+    //     key: 'id'
+    //   }
+    // },
+    // jobId: {
+    //   type: Sequelize.INTEGER,
+    //   references: {
+    //     model: 'jobs',
+    //     key: 'id'
+    //   }
+    // },
+    cv: DataTypes.TEXT,
+    experience: DataTypes.TEXT,
+    interest: DataTypes.TEXT,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
+  });
+
+  
+  request.associate = function (models) {
+    request.belongsTo(models.candidates, {
+      foreignKey: 'id',
+      sourceKey: 'candidateId',
+    });
+    
+    request.belongsTo(models.jobs, {
+      foreignKey: 'id',
+      sourceKey: 'jobId',
+    });
+  };
+  return request;
+};
