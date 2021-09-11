@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticate = require('../middlewares/authentication');
+const { authenticate } = require('../middlewares/authentication');
 
 router.use('/auth', require('./auth'));
 router.use('/jobs', authenticate, require('./jobs'));

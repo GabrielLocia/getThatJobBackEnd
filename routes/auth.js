@@ -4,6 +4,7 @@ const sequelize = require('../db');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const mimeTypes = require('mime-types');
+const { role } = require('../middlewares/authentication');
 
 //Middlewares
 const storage = multer.diskStorage({
@@ -38,7 +39,8 @@ router.post('/login', async (req, res) => {
   }
 
   // Generate a token
-  const token = jwt.sign({ userId: user.id }, 'secretkey', {
+  role("professional");
+  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRETKEY, {
     expiresIn: process.env.JWT_EXPIRESIN,
   });
 
@@ -93,8 +95,8 @@ router.post('/recruiters/login', async (req, res) => {
   }
 
   // Generate a token
-  const token = jwt.sign({ userId: user.id }, 'secretkey', {
-    expiresIn: '10h',
+  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRETKEY, {
+    expiresIn: process.env.JWT_EXPIRESIN,
   });
 
   return res.json({
