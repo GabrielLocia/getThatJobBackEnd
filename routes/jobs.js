@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const sequelize = require('../db');
+const permission = require('../middlewares/permission')
 
 // Get all jobs
-router.get('/', async (req, res) => {
+router.get('/',permission('recruiter', 'professional'), async (req, res) => {
   // const candidate = await sequelize.models.candidates.findAndCountAll();
   const jobs = await sequelize.models.jobs.findAndCountAll();
   return res.status(200).json({ data: jobs });
 });
 
 // Creating a new job
-router.post('/', async (req, res) => {
+router.post('/',permission('recruiter'), async (req, res) => {
   const { body } = req;
 
   const job = await sequelize.models.jobs.create({

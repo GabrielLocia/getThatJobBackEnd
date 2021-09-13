@@ -3,13 +3,14 @@ const router = express.Router();
 const sequelize = require('../db');
 const multer = require('multer');
 const mimeTypes = require('mime-types');
+const permission = require('../middlewares/permission')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'cv');
   },
 
-  filename: function (req, file, cb) {
+filename: function (req, file, cb) {
     cb(
       '',
       Date.now() + file.originalname + '.' + mimeTypes.extension(file.mimetype)
@@ -22,7 +23,7 @@ const upload = multer({
 });
 
 // Get request General
-router.get('/', async (req, res) => {
+router.get('/',permission('recruiter', 'professional'), async (req, res) => {
   const candidate = await sequelize.models.candidates.findOne({
     attributes: ['id'],
     where: {
