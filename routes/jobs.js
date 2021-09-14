@@ -27,6 +27,7 @@ router.post('/',permission('recruiter'), async (req, res) => {
     title: body.title,
     type: body.type,
     seniority: body.seniority,
+    salary: body.salary,
     location: body.location,
     introduccion: body.introduccion,
     description:body.description,
