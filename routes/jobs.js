@@ -21,7 +21,7 @@ router.get('/',permission('recruiter', 'professional'), async (req, res) => {
 // Creating a new job
 router.post('/',permission('recruiter'), async (req, res) => {
   const { body } = req;
-
+  console.log(body.salary);
   const job = await sequelize.models.jobs.create({
     recruiterId: req.user.id,
     title: body.title,
