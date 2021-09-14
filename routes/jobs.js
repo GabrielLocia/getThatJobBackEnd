@@ -6,7 +6,15 @@ const permission = require('../middlewares/permission')
 // Get all jobs
 router.get('/',permission('recruiter', 'professional'), async (req, res) => {
   // const candidate = await sequelize.models.candidates.findAndCountAll();
-  const jobs = await sequelize.models.jobs.findAndCountAll();
+  const jobs = await sequelize.models.jobs.findAndCountAll({
+    include:[{
+      model: sequelize.models.recruiters,
+      attributes: {
+        exclude: ['password','createdAt','updatedAt'],
+      }
+
+    }]
+  });
   return res.status(200).json({ data: jobs });
 });
 
