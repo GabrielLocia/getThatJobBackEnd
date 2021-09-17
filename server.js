@@ -5,8 +5,12 @@ const app = express()
 
 require('dotenv').config()
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/static', express.static(__dirname + '/logo'));
+app.use('/static2', express.static(__dirname + '/cv'));
+
+console.log(__dirname + '/logo')
 app.use(cors());
 
 app.use('/api', require('./routes'))

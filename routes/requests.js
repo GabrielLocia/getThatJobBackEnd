@@ -95,7 +95,8 @@ router.get('/job', async (req, res) => {
 // Creating a new request
 router.post('/', upload.single('cv'), async (req, res) => {
   const { body } = req;
-
+  console.log("archivo", req.file.filename)
+  console.log(body)
   const candidate = await sequelize.models.candidates.findOne({
     attributes: ['id'],
     where: {
@@ -104,13 +105,16 @@ router.post('/', upload.single('cv'), async (req, res) => {
   });
 
   const request = await sequelize.models.requests.create({
-    candidateId: candidate.id,
-    jobId: body.job,
+    candidatesId: candidate.id,
+    jobsId: body.job,
     cv: req.file.path,
     experience: body.experience,
     interest: body.interest,
   });
-  await request.save();
+
+    await request.save();
+    request.cv = `https://get-that-job-backend.herokuapp.com` +"/static2/"+req.file.filename;
+    console.log(request.cv)
   return res.status(201).json({ data: request });
 });
 
