@@ -3,14 +3,14 @@ const { DataTypes, Sequelize } = require('sequelize');
 module.exports = (sequelize) => {
   const request = sequelize.define('requests', {
     // id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    candidateId: {
+    candidatesId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'candidates',
         key: 'id'
       }
     },
-    jobId: {
+    jobsId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'jobs',
