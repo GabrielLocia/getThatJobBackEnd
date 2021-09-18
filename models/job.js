@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
   job.associate = function (models) {
 
     job.hasMany(models.requests, {
-      foreignKey: 'jobId',
+      foreignKey: 'jobsId',
       sourceKey: 'id',
     });
   };
