@@ -34,7 +34,7 @@ router.get('/',permission('recruiter', 'professional'), async (req, res) => {
     
 
     where: {
-      candidateId: candidate.id,
+      candidatesId: candidate.id,
     },
    
   });
@@ -85,7 +85,7 @@ router.get('/job', async (req, res) => {
       }]
     }],
     where: {
-      candidateId: candidate.id,
+      candidatesId: candidate.id,
     },
    
   });
