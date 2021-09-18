@@ -28,12 +28,12 @@ module.exports = (sequelize) => {
   request.associate = function (models) {
     request.belongsTo(models.candidates, {
       foreignKey: 'id',
-      sourceKey: 'candidatesId',
+      sourceKey: 'candidateId',
     });
     
     request.belongsTo(models.jobs, {
       foreignKey: 'id',
-      sourceKey: 'jobsId',
+      sourceKey: 'jobId',
     });
   };
   return request;

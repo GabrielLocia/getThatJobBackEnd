@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
 
   candidate.associate = function (models) {
     candidate.hasMany(models.requests, {
-      foreignKey: 'candidatesId',
+      foreignKey: 'candidateId',
       sourceKey: 'id',
     });
   };
