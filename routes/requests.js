@@ -32,9 +32,8 @@ router.get('/',permission('recruiter', 'professional'), async (req, res) => {
   });
   const request = await sequelize.models.requests.findAll({
     
-
     where: {
-      candidatesId: candidate.id,
+      candidateId: candidate.id,
     },
    
   });
@@ -85,7 +84,7 @@ router.get('/job', async (req, res) => {
       }]
     }],
     where: {
-      candidatesId: candidate.id,
+      candidateId: candidate.id,
     },
    
   });
@@ -105,8 +104,8 @@ router.post('/', upload.single('cv'), async (req, res) => {
   });
 
   const request = await sequelize.models.requests.create({
-    candidatesId: candidate.id,
-    jobsId: body.job,
+    candidateId: candidate.id,
+    jobId: body.job,
     cv: req.file.path,
     experience: body.experience,
     interest: body.interest,
