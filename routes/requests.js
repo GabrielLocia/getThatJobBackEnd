@@ -91,6 +91,33 @@ router.get('/job', async (req, res) => {
   return res.status(200).json({ data: request });
 });
 
+router.get('/exists',async(req,res)=>{
+
+  const{ body } = req;
+
+  const candidate = await sequelize.models.candidates.findOne({
+    attributes: ['id'],
+    where: {
+      professionalId: req.user.id,
+    },
+  });
+
+  const job = await sequelize.models.requests.findOne({
+
+    where:{
+      candidateID: candidate.id,
+      jobId: body.job
+    }
+  })
+
+  if(job){
+    return res.status(201).json("exists" );
+  }else{
+    return res.status(201).json("noexists" );
+  }
+
+})
+
 // Creating a new request
 router.post('/', upload.single('cv'), async (req, res) => {
   const { body } = req;
