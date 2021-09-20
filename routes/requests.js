@@ -91,9 +91,9 @@ router.get('/job', async (req, res) => {
   return res.status(200).json({ data: request });
 });
 
-router.get('/exists',async(req,res)=>{
+router.get('/exists:id',async(req,res)=>{
 
-  const{ body } = req;
+  const{ params: { id } } = req;
 
   const candidate = await sequelize.models.candidates.findOne({
     attributes: ['id'],
@@ -106,7 +106,7 @@ router.get('/exists',async(req,res)=>{
 
     where:{
       candidateID: candidate.id,
-      jobId: body.job
+      jobId: id
     }
   })
 
