@@ -22,7 +22,38 @@ const upload = multer({
   storage: storage,
 });
 
-// Get request General
+
+//requests with jobs
+router.get("/", async (req, res) => {
+  console.log("entra")
+  const candidate = await sequelize.models.candidates.findOne({
+    attributes: ["id"],
+    where: {
+      professionalId: req.user.id,
+    },
+  });
+  const request = await sequelize.models.requests.findAll({
+    include: [
+      {
+        model: sequelize.models.jobs,
+        include: [
+          {
+            model: sequelize.models.recruiters,
+            attributes: ["company_name", "description"],
+          },
+        ],
+      },
+    ],
+    where: {
+      candidateId: candidate.id,
+    },
+  });
+  console.log("entra")
+  console.log(request)
+  return res.status(200).json({ data: request });
+});
+
+// Get request General of candidate
 router.get("/:id", permission("recruiter", "professional"),async (req, res) => {
     const {
       params: { id },
@@ -38,6 +69,7 @@ router.get("/:id", permission("recruiter", "professional"),async (req, res) => {
         id: id
       },
     });
+    console.log("general")
     return res.status(200).json({ data: request });
   }
 );
@@ -68,32 +100,7 @@ router.get("/candidate", async (req, res) => {
   });
   return res.status(200).json({ data: request });
 });
-//requests with jobs
-router.get("/job", async (req, res) => {
-  const candidate = await sequelize.models.candidates.findOne({
-    attributes: ["id"],
-    where: {
-      professionalId: req.user.id,
-    },
-  });
-  const request = await sequelize.models.requests.findAll({
-    include: [
-      {
-        model: sequelize.models.jobs,
-        include: [
-          {
-            model: sequelize.models.recruiters,
-            attributes: ["company_name", "description"],
-          },
-        ],
-      },
-    ],
-    where: {
-      candidateId: candidate.id,
-    },
-  });
-  return res.status(200).json({ data: request });
-});
+
 
 router.get("/exists:id", async (req, res) => {
   const {
