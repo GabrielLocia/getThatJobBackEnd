@@ -47,6 +47,9 @@ router.get("/", async (req, res) => {
     where: {
       candidateId: candidate.id,
     },
+    attributes:{
+      exclude: ["cv"]
+    } 
   });
   console.log("entra")
   console.log(request)
@@ -54,25 +57,25 @@ router.get("/", async (req, res) => {
 });
 
 // Get request General of candidate
-router.get("/:id", permission("recruiter", "professional"),async (req, res) => {
-    const {
-      params: { id },
-    } = req;
-    // const candidate = await sequelize.models.candidates.findOne({
-    //   attributes: ["id"],
-    //   where: {
-    //     professionalId: req.user.id,
-    //   },
-   // });
-    const request = await sequelize.models.requests.findOne({
-      where: {
-        id: id
-      },
-    });
-    console.log("general")
-    return res.status(200).json({ data: request });
-  }
-);
+// router.get("/:id", permission("recruiter", "professional"),async (req, res) => {
+//     const {
+//       params: { id },
+//     } = req;
+//     // const candidate = await sequelize.models.candidates.findOne({
+//     //   attributes: ["id"],
+//     //   where: {
+//     //     professionalId: req.user.id,
+//     //   },
+//    // });
+//     const request = await sequelize.models.requests.findOne({
+//       where: {
+//         id: id
+//       },
+//     });
+//     console.log("general")
+//     return res.status(200).json({ data: request });
+//   }
+// );
 
 //requests with candidate
 router.get("/candidate", async (req, res) => {
