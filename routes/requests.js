@@ -46,10 +46,7 @@ router.get("/", async (req, res) => {
     ],
     where: {
       candidateId: candidate.id,
-    },
-    attributes:{
-      exclude: ["cv"]
-    } 
+    }
   });
   console.log("entra")
   console.log(request)
