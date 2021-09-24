@@ -48,7 +48,11 @@ router.get("/", async (req, res) => {
       candidateId: candidate.id,
     }
   });
-  console.log("entra")
+  request.cv =
+    `https://get-that-job-backend.herokuapp.com` +
+    "/static2/" +
+    req.file.filename;
+    
   console.log(request)
   return res.status(200).json({ data: request });
 });
