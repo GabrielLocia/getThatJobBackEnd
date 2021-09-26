@@ -144,8 +144,7 @@ router.get("/exists/:id", async (req, res) => {
   });
 
   if(!candidate){
-    console.log("candidate not found")
-   return res.status(401).json({ message: "complete your information as candidate in tab your profile!" });
+   return res.status(404).json({ message: "complete your information as candidate in tab your profile!" });
   }
   
      job = await sequelize.models.requests.findOne({
