@@ -36,7 +36,7 @@ router.post('/',permission('recruiter'), async (req, res) => {
     requirements: body.requirements,
   });
   await job.save();
-  return res.status(201).json({ data: job });
+  return res.status(201).json({ data: job , update:true});
 });
 
 // // Update a review by id
