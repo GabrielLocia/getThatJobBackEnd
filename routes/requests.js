@@ -142,10 +142,13 @@ router.get("/exists/:id", async (req, res) => {
       professionalId: req.user.id,
     },
   });
+
   if(!candidate){
-    res.status(401).json({ message: "complete your information as candidate in tab your profile!" });
+
+   return res.status(401).json({ message: "complete your information as candidate in tab your profile!" });
   }
-  const job = await sequelize.models.requests.findOne({
+  
+     job = await sequelize.models.requests.findOne({
     where: {
       candidateID: candidate.id,
       jobId: id,
