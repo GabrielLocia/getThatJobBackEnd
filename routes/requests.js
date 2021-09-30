@@ -57,28 +57,39 @@ router.get("/", async (req, res) => {
 
 router.get("/application", async (req, res) => {
   console.log("entra")
-  const candidate = await sequelize.models.candidates.findOne({
-    attributes: ["id"],
-    where: {
-      professionalId: req.user.id,
-    },
-  });
   const request = await sequelize.models.requests.findAll({
     include: [
       {
         model: sequelize.models.jobs,
-        include: [
-          {
-            model: sequelize.models.recruiters,
-            attributes: ["company_name", "description"],
-          },
-        ],
+        attributes: ["title","location","createdAt"]
+
       },
-    ]
+    ],
+
   });
+  return res.status(200).json({ data: request , url:"https://get-that-job-backend.herokuapp.com"});
+});
 
+router.get("/application/:idJob", async (req, res) => {
+  console.log("entra")
+  const {
+    params: { idJob },
+  } = req;
+  const request = await sequelize.models.requests.findAll({
+    include: [
+      {
+        model: sequelize.models.candidates,
+        attributes: ["fullname","phone","createdAt"],
+        include:[{
+          model: sequelize.models.professionals,
+          attributes:["email"]
+        }]
 
+      },
+    ],
+    where:{ jobId: idJob }
 
+  });
   return res.status(200).json({ data: request , url:"https://get-that-job-backend.herokuapp.com"});
 });
 
