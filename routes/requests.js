@@ -79,7 +79,7 @@ router.get("/application/:idJob", async (req, res) => {
     include: [
       {
         model: sequelize.models.candidates,
-        attributes: ["fullname","phone","createdAt"],
+        attributes: ["fullname","phone","createdAt","description"],
         include:[{
           model: sequelize.models.professionals,
           attributes:["email"]
