@@ -61,7 +61,7 @@ router.get("/application", async (req, res) => {
     include: [
       {
         model: sequelize.models.jobs,
-        attributes: ["title","location","createdAt"]
+        attributes: ["id","title","location","createdAt"]
 
       },
     ],
