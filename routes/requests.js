@@ -61,11 +61,11 @@ router.get("/application", async (req, res) => {
     include: [
       {
         model: sequelize.models.jobs,
-        attributes: ["id","title","location","createdAt"]
-
+        attributes: ["id","title","location","createdAt"],
+        where: {recruiterId: req.user.id}
       },
-    ],
 
+    ],
   });
   return res.status(200).json({ data: request , url:"https://get-that-job-backend.herokuapp.com"});
 });
